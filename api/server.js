@@ -1,7 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import User from "./routes/userRoute.js";
+import Auth from "./routes/authRoute.js";
+import cors from "cors";
 dotenv.config();
+
 const app = express();
 mongoose
     .connect(process.env.MONGO)
@@ -12,11 +16,10 @@ mongoose
         console.log(e);
     });
 const PORT = process.env.PORT_NUMBER || 4500;
-
+app.use(cors());
+app.use(express.json());
 app.listen(PORT, () => {
     console.log("Server Stared at port :", PORT);
 });
-
-app.use("/", (req, res) => {
-    res.send(req.method);
-});
+app.use("/api/user", User);
+app.use("/api/auth", Auth);
