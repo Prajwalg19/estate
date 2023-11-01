@@ -18,5 +18,5 @@ app.listen(PORT, () => {
 });
 
 app.use("/", (req, res) => {
-    res.send();
+    res.send(req.method);
 });
