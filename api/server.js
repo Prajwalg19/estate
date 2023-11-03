@@ -23,3 +23,13 @@ app.listen(PORT, () => {
 });
 app.use("/api/user", User);
 app.use("/api/auth", Auth);
+
+app.use((err, req, res, next) => {
+    let statusCode = err.statusCode || 500;
+    let msg = err.message || "Interval server error";
+    res.status(statusCode).json({
+        message: msg,
+        statusCode,
+        success: false,
+    });
+});

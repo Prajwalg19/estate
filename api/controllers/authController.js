@@ -1,8 +1,37 @@
-export const Signin = (req, res, error) => {
-    res.json({ name: "Signin" });
+import bcrypt from "bcryptjs";
+import { userModel } from "../models/user.model.js";
+import customError from "../utils/error.js";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+export const Signup = async (req, res, next) => {
+    try {
+        let { userName, email, password } = req.body;
+        password = bcrypt.hashSync(password);
+        let newUser = new userModel({ userName, email, password });
+        await newUser.save();
+        res.status(201).json("User created successfully");
+    } catch (e) {
+        next(e);
+    }
 };
 
-export const Signup = (req, res, error) => {
-    const { userName, email, password } = req.body;
-    res.send("boo");
+export const Signin = async (req, res, next) => {
+    const { email, password } = req.body;
+    let query = await userModel.findOne({ email });
+    try {
+        if (!query) {
+            next(customError(404, "User not found"));
+        }
+        let decryptPass = await bcrypt.compare(password, query.password);
+        if (decryptPass) {
+            const token = jwt.sign({ id: query._id }, process.env.JWT_SEC_KEY);
+            const { password, _id, ...rest } = query._doc;
+            res.status(200).cookie("my_cookie", token, { httpOnly: true }).json({ user: rest, message: "LogIn successfull", success: true });
+        } else {
+            next(customError(401, "Wrong Credentials"));
+        }
+    } catch (e) {
+        next(e);
+    }
 };
