@@ -22,12 +22,13 @@ export const Signin = async (req, res, next) => {
     try {
         if (!query) {
             next(customError(404, "User not found"));
+            return;
         }
         let decryptPass = await bcrypt.compare(password, query.password);
         if (decryptPass) {
             const token = jwt.sign({ id: query._id }, process.env.JWT_SEC_KEY);
             const { password, _id, ...rest } = query._doc;
-            res.status(200).cookie("my_cookie", token, { httpOnly: true }).json({ user: rest, message: "LogIn successfull", success: true });
+            res.cookie("my_cookie", token, { httpOnly: true }).status(200).json({ user: rest, message: "LogIn successfull", success: true });
         } else {
             next(customError(401, "Wrong Credentials"));
         }

@@ -7,6 +7,7 @@ const Signup = () => {
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState({});
+    const [error, setError] = useState("");
     const navigate = useNavigate();
     const submit = async (e) => {
         e.preventDefault();
@@ -15,7 +16,11 @@ const Signup = () => {
             const response = await axios.post("api/auth/signup/", data);
             if (response.status == 201) navigate("/signin");
         } catch (e) {
-            console.log(e);
+            if (e?.response) {
+                setError(e.response.data.message);
+            } else {
+                setError("Server Did not respond");
+            }
         }
         setLoading(false);
     };
@@ -42,6 +47,7 @@ const Signup = () => {
                         <Link className="text-blue-600 " to="/signin">
                             Login
                         </Link>
+                        <p className="mt-3 text-red-600">{error}</p>
                     </span>
                 </form>
             </main>

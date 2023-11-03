@@ -3,35 +3,41 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import OAuth from "../components/OAuth";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../config/axiosConfig";
+import { useDispatch, useSelector } from "react-redux";
+import { signFailure, signInStart, signInSuccess } from "../redux/features/user/userSlice";
 const SignIn = () => {
     const [visible, setVisible] = useState(false);
     const [data, setData] = useState({});
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector((store) => {
+        return store.user;
+    });
     const submit = async (e) => {
-        try {
-            e.preventDefault();
-            let error = [];
-            for (const d in data) {
-                if (data[d] == "") error.push("empty");
-            }
+        e.preventDefault();
+        let error = [];
+        for (const d in data) {
+            if (data[d] == "") error.push("empty");
+        }
 
-            if (error.length) {
-                setError("Enter credentials");
-                return;
-            }
-            setLoading(true);
+        if (error.length) {
+            dispatch(signFailure("Enter the Credentials"));
+            return;
+        }
+        try {
+            dispatch(signInStart());
             let response = await axios.post("api/auth/signin/", data);
             response = response.data;
             if (response.success) {
                 navigate("/");
-                setLoading(false);
+                dispatch(signInSuccess(response));
             }
         } catch (error) {
-            setError(error.response.data.message);
-            setLoading(false);
+            if (error?.response) {
+                dispatch(signFailure(error.response.data.message));
+            } else {
+                dispatch(signFailure("Internal Server Error"));
+            }
         }
     };
     return (
