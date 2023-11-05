@@ -26,9 +26,9 @@ const Header = () => {
                         <Link to="/about">About</Link>
                     </li>
                     {currentUser ? (
-                        <li>
+                        <li className="">
                             <Link to="/profile">
-                                <img src={`${currentUser.user.photoURL}`} className="rounded-full h-6 w-6 object-cover" />
+                                <img src={`${currentUser.photoURL}`} className="rounded-full h-6 w-6 object-cover" />
                             </Link>
                         </li>
                     ) : (

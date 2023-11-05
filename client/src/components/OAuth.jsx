@@ -23,7 +23,7 @@ function OAuth() {
                 photoURL: result.user.photoURL,
             };
             let response = await axios.post("/api/auth/OAuth/", data);
-            dispatch(signInSuccess({ data: response.data, OAuth: "OAuth" }));
+            dispatch(signInSuccess({ data: response.data.user, OAuth: "OAuth" }));
             navigate("/");
         } catch (error) {
             if (error?.response) {
@@ -34,11 +34,9 @@ function OAuth() {
         }
     };
     return (
-        <main>
-            <button disabled={OAuthLoading} onClick={login} type="button" className="w-full p-2 text-white bg-red-700 rounded-md hover:bg-red-800 active:bg-red-900 transition ease-in-out">
-                {OAuthLoading ? "Loading..." : "Continue with google"}
-            </button>
-        </main>
+        <button disabled={OAuthLoading} onClick={login} type="button" className="w-full p-2 text-white bg-red-700 rounded-md hover:bg-red-800 active:bg-red-900 transition ease-in-out">
+            {OAuthLoading ? "Loading..." : "Continue with google"}
+        </button>
     );
 }
 export default OAuth;

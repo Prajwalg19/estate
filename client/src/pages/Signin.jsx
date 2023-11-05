@@ -30,7 +30,7 @@ const SignIn = () => {
             response = response.data;
             if (response.success) {
                 navigate("/");
-                dispatch(signInSuccess(response));
+                dispatch(signInSuccess(response.user));
             }
         } catch (error) {
             if (error?.response) {

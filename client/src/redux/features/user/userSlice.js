@@ -35,8 +35,23 @@ const userSlice = createSlice({
             if (action.payload?.OAuth == "OAuth") state.OAuthLoading = true;
             else state.loading = true;
         },
+        logOut: (state) => {
+            state.currentUser = null;
+        },
+        updateUserStart: (state) => {
+            state.loading = true;
+        },
+        updateUserFail: (state, action) => {
+            state.error = action.payload;
+            state.loading = false;
+        },
+        updateUserSuccess: (state, action) => {
+            state.currentUser = action.payload;
+            state.loading = false;
+            state.error = null;
+        },
     },
 });
 
 export default userSlice.reducer;
-export const { signFailure, signInStart, signInSuccess } = userSlice.actions;
+export const { signFailure, signInStart, signInSuccess, logOut, updateUserFail, updateUserStart, updateUserSuccess } = userSlice.actions;
