@@ -53,7 +53,6 @@ const Profile = () => {
         for (const item in data) {
             if (item != "password" && data[item] == "") demo.push("empty");
         }
-        console.log(demo);
         if (demo.length != 0) {
             dispatch(updateUserFail("Invalid Credentials"));
             return;
@@ -78,28 +77,28 @@ const Profile = () => {
     };
     const deleteAccount = async () => {
         try {
-            const response = await axios.post("/api/user/delete", { _id: currentUser._id });
-            if (response.status == 200) {
+            const response = await axios.delete(`/api/user/delete/${currentUser._id}`);
+            if (response.data.success) {
                 dispatch(logout());
             }
         } catch (error) {
             if (error?.response) {
-                console.log(error.response.data.message);
+                dispatch(updateUserFail());
             } else {
-                console.log("Server Timed Out");
+                dispatch(updateUserFail("Something went wrong"));
             }
         }
     };
     return (
-        <main className="flex flex-col justify-center w-full max-w-6xl pb-5 p-2 mx-auto">
+        <main className="flex flex-col justify-center w-full max-w-6xl p-2 pb-5 mx-auto">
             <h1 className="my-10 text-3xl font-semibold text-center">Profile</h1>
 
             <form className="flex flex-col items-center w-full max-w-md px-3 mx-auto gap-6">
                 <input ref={fileRef} accept="image/*" type="file" className="hidden" onChange={(e) => setPfp(e.target.files[0])} />
                 <img onClick={() => fileRef.current.click()} className="object-cover w-20 h-20 mb-3 rounded-full cursor-pointer" src={data?.photoURL || currentUser.photoURL} />
                 <p className="text-sm">{prec && prec != "100" ? <span className="text-red-600">{prec}% Complete</span> : fileError ? <span className="text-red-600">File Size Cannot be &#62;2mb </span> : prec == "100" ? <span className="text-sm text-green-600">Upload Successful</span> : ""}</p>
-                <input type="text" onChange={(e) => setData((prev) => ({ ...prev, userName: e.target.value }))} value={data.userName} className="w-full p-3 border-gray-500 rounded-md" placeholder="Username" />
-                <input type="email" onChange={(e) => setData((prev) => ({ ...prev, email: e.target.value }))} value={data.email} className="w-full p-3 border-gray-500 rounded-md" placeholder="Email" />
+                <input type="text" onChange={(e) => setData((prev) => ({ ...prev, userName: e.target.value }))} defaultValue={data.userName} className="w-full p-3 border-gray-500 rounded-md" placeholder="Username" />
+                <input type="email" onChange={(e) => setData((prev) => ({ ...prev, email: e.target.value }))} defaultValue={data.email} className="w-full p-3 border-gray-500 rounded-md" placeholder="Email" />
                 <input type="password" onChange={(e) => setData((prev) => ({ ...prev, password: e.target.value }))} className="w-full p-3 border-gray-500 rounded-md" placeholder="Password" />
                 <button disabled={loading} onClick={update} className="w-full p-2 text-white bg-slate-700 hover:bg-slate-800 active:bg-slate-900 rounded-md">
                     {loading ? "Updating..." : "Update"}

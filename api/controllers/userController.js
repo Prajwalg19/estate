@@ -3,11 +3,15 @@ import customError from "../utils/error.js";
 import bcryptjs from "bcryptjs";
 
 export const deleteUser = async (req, res, next) => {
-    const { _id } = req.body;
+    const uid = req.params.uid;
+    if (uid != req.myValue.id) {
+        next(customError(403, "Forbidden"));
+        return;
+    }
     try {
-        const query = await userModel.findByIdAndDelete({ _id: _id });
+        const query = await userModel.findByIdAndDelete({ _id: uid });
         if (query) {
-            res.status(200).json({ message: "Account Deleted", success: true });
+            res.status(200).clearCookie("my_cookie").json({ message: "Account Deleted", success: true });
         } else {
             res.status(404).json({ message: "Account Not Found", success: false });
         }
@@ -22,7 +26,7 @@ export const updateUser = async (req, res, next) => {
             next(customError(403, "Forbidden, can't change values of different account"));
             return;
         }
-        if (req.body.password) {
+        if (req.body?.password) {
             req.body.password = bcryptjs.hashSync(req.body.password);
         }
         const query = await userModel.findOneAndUpdate(
