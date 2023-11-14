@@ -1,0 +1,15 @@
+{
+    "vim.cursorStylePerMode.insert": "line",
+    "vim.cursorStylePerMode.normal": "block",
+    "vim.cursorStylePerMode.replace": "block",
+    "vim.cursorStylePerMode.visual": "block",
+    "vim.cursorStylePerMode.visualblock": "block",
+    "vim.cursorStylePerMode.visualline": "block",
+    "vim.enableNeovim": true,
+    "vim.highlightedyank.enable": true,
+    "vim.hlsearch": false,
+    "vim.neovimUseConfigFile": true,
+    "vim.sneak": true,
+    "vim.useSystemClipboard": true,
+    "vim.vimrc.enable": false
+}

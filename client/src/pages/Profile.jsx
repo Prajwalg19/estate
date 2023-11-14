@@ -4,6 +4,7 @@ import { getStorage, uploadBytesResumable, ref, getDownloadURL } from "firebase/
 import { app } from "../firebase";
 import { logOut, updateUserFail, updateUserStart, updateUserSuccess } from "../redux/features/user/userSlice";
 import axios from "../config/axiosConfig";
+import { Link } from "react-router-dom";
 const Profile = () => {
     const fileRef = useRef();
     const dispatch = useDispatch();
@@ -103,7 +104,9 @@ const Profile = () => {
                 <button disabled={loading} onClick={update} className="w-full p-2 text-white bg-slate-700 hover:bg-slate-800 active:bg-slate-900 rounded-md">
                     {loading ? "Updating..." : "Update"}
                 </button>
-                <button className="w-full p-2 text-white bg-green-600 hover:bg-green-700 active:bg-green-800 rounded-md">Create Listing</button>
+                <Link to={`/listing/${currentUser._id}`} className="text-center w-full p-2 text-white bg-green-600 hover:bg-green-700 active:bg-green-800 rounded-md">
+                    Create Listing
+                </Link>
                 <p className="flex justify-between w-full text-sm font-semibold text-red-700">
                     <span className="cursor-pointer" onClick={deleteAccount}>
                         Delete Account

@@ -1,8 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import User from "./routes/userRoute.js";
-import Auth from "./routes/authRoute.js";
+import userRouter from "./routes/userRoute.js";
+import authRouter from "./routes/authRoute.js";
+import listingRouter from "./routes/listingsRoute.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 dotenv.config();
@@ -27,9 +28,9 @@ app.use(cookieParser());
 app.listen(PORT, () => {
     console.log("Server Stared at port :", PORT);
 });
-app.use("/api/user", User);
-app.use("/api/auth", Auth);
-
+app.use("/api/user", userRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/listings", listingRouter);
 app.use((err, req, res, next) => {
     let statusCode = err.statusCode || 500;
     let msg = err.message || "Internal server error";
