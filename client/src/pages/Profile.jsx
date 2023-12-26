@@ -218,7 +218,7 @@ const Profile = () => {
                   src={item.imgURL[0]}
                   className="object-cover rounded-md w-14 h-14"
                 />
-                <p className="text-sm font-semibold truncate hover:underline ">
+                <p className="text-sm font-semibold truncate cursor-pointer hover:underline ">
                   {item.name}
                 </p>
                 <div className="flex flex-col items-center justify-center text-sm">
@@ -229,7 +229,7 @@ const Profile = () => {
                     Delete
                   </p>
                   <p className="text-green-500 cursor-pointer">
-                    <Link to={`/listings/${item._id}`}>Edit</Link>
+                    <Link to={`/update-listing/${item._id}`}>Edit</Link>
                   </p>
                 </div>
               </div>

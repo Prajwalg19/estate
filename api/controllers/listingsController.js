@@ -9,12 +9,42 @@ export const createListing = async (req, res, next) => {
     next(error);
   }
 };
-export const getListing = async (req, res, next) => {
+export const getListings = async (req, res, next) => {
   try {
     if (req.myValue.id != req.params.uid) return customError(403, "Forbidden");
     const _id = req.myValue.id;
     const query = await listingModel.find({ userRef: _id });
     res.status(200).json(query);
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const getListing = async (req, res, next) => {
+  try {
+    const listingID = req.params.id;
+    const query = await listingModel.findById(listingID);
+    if (query) {
+      res.status(200).json(query);
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const updateListing = async (req, res, next) => {
+  try {
+    const listingID = req.params.id;
+    const data = req.body;
+    const query = await listingModel.findOne({ _id: listingID });
+    if (req.myValue.id == query.userRef) {
+      const query2 = await listingModel.findOneAndUpdate(query, data);
+      res
+        .status(200)
+        .json({ status: "success", message: "Updation Successful", query2 });
+    } else {
+      next(customError(403, "Forbidden"));
+    }
   } catch (e) {
     next(e);
   }
