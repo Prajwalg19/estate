@@ -24,8 +24,8 @@ function SearchPage() {
     async function fetchTheResult() {
       setLoading(true);
       const allParams = new URLSearchParams(search); // manipulate the query parameters of the URL
-      const searchTerm = allParams.get("searchTerm");
-      const offer = allParams.get("offer") == "true ";
+      const searchTerm = allParams.get("searchTerm") ?? "";
+      const offer = allParams.get("offer") == "true";
 
       const furnished = allParams.get("furnished") == "true";
       const parking = allParams.get("parking") == "true";
@@ -222,7 +222,9 @@ function SearchPage() {
                   <span className="font-semibold truncate">{item.name}</span>
                   <span className="flex items-center gap-2">
                     <RiMapPin2Fill className="w-4 h-4 text-green-600" />
-                    <span className="text-sm line-clamp-1">{item.address}</span>
+                    <span className="w-full text-sm line-clamp-1">
+                      {item.address}
+                    </span>
                   </span>
                   <span className="text-sm line-clamp-1">
                     &#8377;

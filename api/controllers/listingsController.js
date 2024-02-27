@@ -91,7 +91,7 @@ export async function search(req, res, next) {
     let searchTerm = req.query.searchTerm || "";
     let offer = req.query.offer;
     let startIndex = req.query.startIndex || 0;
-    let limit = 3;
+    let limit = req.query.limit || 3;
     let type = req.query.type;
     let parking = req.query.parking;
     let furnished = req.query.furnished;
