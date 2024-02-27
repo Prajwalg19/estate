@@ -8,6 +8,8 @@ import Header from "./components/Header";
 import PrivateRoute from "./pages/PrivateRoute";
 import CreateListing from "./pages/CreateListings";
 import UpdateListing from "./pages/UpdateListing";
+import Listing from "./pages/Listing";
+import SearchPage from "./pages/SearchPage";
 function App() {
   return (
     <>
@@ -18,11 +20,13 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/listing/:id" element={<Listing />} />
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
             <Route path="/create-listing" element={<CreateListing />} />
             <Route path="/update-listing/:id" element={<UpdateListing />} />
           </Route>
+          <Route path="/search" element={<SearchPage />} />
         </Routes>
       </BrowserRouter>
     </>

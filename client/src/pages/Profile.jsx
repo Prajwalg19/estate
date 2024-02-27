@@ -218,9 +218,12 @@ const Profile = () => {
                   src={item.imgURL[0]}
                   className="object-cover rounded-md w-14 h-14"
                 />
-                <p className="text-sm font-semibold truncate cursor-pointer hover:underline ">
+                <Link
+                  to={`/listing/${item._id}`}
+                  className="text-sm font-semibold truncate cursor-pointer hover:underline "
+                >
                   {item.name}
-                </p>
+                </Link>
                 <div className="flex flex-col items-center justify-center text-sm">
                   <p
                     className="text-red-600 cursor-pointer"
