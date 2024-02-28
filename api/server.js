@@ -23,10 +23,10 @@ const corsOptions = {
   origin: "*", // requests from this origin are allowed
   credentials: true, //permits cookie credentials to be allowed
 };
-const dirname = path.resolve();
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+const dirname = path.resolve();
 app.listen(PORT, () => {
   console.log("Server Stared at port :", PORT);
 });
