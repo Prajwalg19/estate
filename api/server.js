@@ -13,7 +13,7 @@ const corsOpts = {
   origin: [
     "https://estate-git-master-prajwalg19.vercel.app/",
     "http://localhost:5173",
-    "https://estate-lake.vercel.app/",
+    "http://estate-lake.vercel.app/",
     "https://estate-fm8c2tsf9-prajwalg19.vercel.app/",
   ],
   credentials: true,
