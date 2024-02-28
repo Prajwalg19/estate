@@ -20,7 +20,12 @@ mongoose
   });
 const PORT = process.env.PORT_NUMBER || 4500;
 const corsOptions = {
-  origin: "*", // requests from this origin are allowed
+  origin: [
+    "http://localhost:4500",
+    "http://localhost:4000",
+    "http://localhost:5173",
+    "https://estate-website-a6u4.onrender.com",
+  ], // requests from this origin are allowed
   credentials: true, //permits cookie credentials to be allowed
 };
 app.use(cors(corsOptions));
