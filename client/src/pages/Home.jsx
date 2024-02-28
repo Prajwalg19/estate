@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "../config/axiosConfig";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "swiper/element/bundle";
 import { RiMapPin2Fill } from "react-icons/ri";
 const Home = () => {
@@ -8,6 +8,7 @@ const Home = () => {
   const [offersList, setOffersList] = useState([]);
   const [rentList, setRentList] = useState([]);
   const [saleList, setSaleList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchOffers() {
@@ -41,7 +42,10 @@ const Home = () => {
           Find the house from where you are, all at the tip of your fingers
           <br />
         </p>
-        <Link to="/search" className="text-purple-700 hover:underline">
+        <Link
+          to="/search"
+          className="text-sm font-semibold text-purple-700 hover:underline"
+        >
           Start finding your home
         </Link>
       </div>
@@ -49,7 +53,6 @@ const Home = () => {
       <div className="mt-20 mb-16">
         <swiper-container
           navigation="true"
-          slides-per-view="1"
           speed="500"
           loop="true"
           css-mode="true"
@@ -82,7 +85,8 @@ const Home = () => {
             {offersList.map((item, index) => (
               <div
                 key={index}
-                className="hover:shadow-lg overflow-hidden shadow-md transition ease-in-out w-full sm:w-[300px] flex flex-col "
+                className="hover:shadow-lg overflow-hidden shadow-md transition ease-in-out w-full sm:w-[300px] flex flex-col cursor-pointer"
+                onClick={() => navigate(`/listing/${item._id}`)}
               >
                 <img
                   src={item.imgURL[0]}
@@ -126,7 +130,8 @@ const Home = () => {
             {rentList.map((item, index) => (
               <div
                 key={index}
-                className="hover:shadow-lg overflow-hidden shadow-md transition ease-in-out w-full sm:w-[300px] flex flex-col "
+                className="hover:shadow-lg overflow-hidden shadow-md transition ease-in-out w-full sm:w-[300px] flex flex-col cursor-pointer"
+                onClick={() => navigate(`/listing/${item._id}`)}
               >
                 <img
                   src={item.imgURL[0]}
@@ -171,7 +176,8 @@ const Home = () => {
             {saleList.map((item, index) => (
               <div
                 key={index}
-                className="hover:shadow-lg overflow-hidden shadow-md transition ease-in-out w-full sm:w-[300px] flex flex-col "
+                className="hover:shadow-lg overflow-hidden shadow-md transition ease-in-out w-full sm:w-[300px] flex flex-col cursor-pointer"
+                onClick={() => navigate(`/listing/${item._id}`)}
               >
                 <img
                   src={item.imgURL[0]}
