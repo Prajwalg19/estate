@@ -28,7 +28,7 @@ const corsOptions = {
   ], // requests from this origin are allowed
   credentials: true, //permits cookie credentials to be allowed
 };
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 const dirname = path.resolve();
