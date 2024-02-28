@@ -9,7 +9,17 @@ import cookieParser from "cookie-parser";
 import path from "path";
 dotenv.config();
 
+const corsOptions = {
+  origin: [
+    "https://estate-git-master-prajwalg19.vercel.app/",
+    "http://localhost:5173",
+    "https://estate-lake.vercel.app/",
+    "https://estate-fm8c2tsf9-prajwalg19.vercel.app/",
+  ], // requests from this origin are allowed
+  credentials: true, //permits cookie credentials to be allowed
+};
 const app = express();
+app.use(cors(corsOptions));
 mongoose
   .connect(process.env.MONGO)
   .then(() => {
@@ -19,11 +29,6 @@ mongoose
     console.log(e);
   });
 const PORT = process.env.PORT_NUMBER || 4500;
-const corsOptions = {
-  origin: "*", // requests from this origin are allowed
-  credentials: true, //permits cookie credentials to be allowed
-};
-app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 const dirname = path.resolve();
