@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const settings = axios.create({
-    baseURL: "https://estate-lake.vercel.app/",
+    baseURL: "http://localhost:4000",
     withCredentials: true,
 });
 
