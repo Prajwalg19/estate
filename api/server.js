@@ -8,7 +8,6 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
 dotenv.config();
-const app = express();
 mongoose
     .connect(process.env.MONGO)
     .then(() => {
@@ -17,19 +16,21 @@ mongoose
     .catch((e) => {
         console.log(e);
     });
-const PORT = process.env.PORT_NUMBER || 4500;
-app.listen(PORT, () => {
-    console.log("Server Stared at port :", PORT);
-});
+const __dirname = path.resolve();
+const app = express();
+app.use(express.json());
+app.use(cookieParser());
 const corsOpts = {
     origin: ["https://estate-lake.vercel.app", "http://localhost:5173"],
     credentials: true,
 };
 app.use(cors(corsOpts));
 
-app.use(express.json());
-app.use(cookieParser());
-const __dirname = path.resolve();
+//const PORT = process.env.PORT_NUMBER || 4500;
+app.listen(4000, () => {
+    console.log("Server Stared at port : 4000");
+});
+
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/listings", listingRouter);
