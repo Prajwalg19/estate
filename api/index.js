@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 const corsOpts = {
-    origin: ["https://estate-lake.vercel.app", "http://localhost:5173"],
+    origin: ["https://findmyhome-frontend.vercel.app", "https://findmyhome-frontend-prajwalg19s-projects.vercel.app"],
     credentials: true,
 };
 app.use(cors(corsOpts));
