@@ -6,7 +6,7 @@ import authRouter from "./routes/authRoute.js";
 import listingRouter from "./routes/listingsRoute.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import path from "path";
+// import path from "path";
 dotenv.config();
 mongoose
     .connect(process.env.MONGO)
@@ -16,7 +16,7 @@ mongoose
     .catch((e) => {
         console.log(e);
     });
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -34,10 +34,10 @@ app.listen(4000, () => {
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/listings", listingRouter);
-app.use(express.static(path.join(__dirname, "/client/dist")));
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-});
+// app.use(express.static(path.join(__dirname, "/client/dist")));
+// app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+// });
 app.use((err, req, res, next) => {
     let statusCode = err.statusCode || 500;
     let msg = err.message || "Internal server error";
