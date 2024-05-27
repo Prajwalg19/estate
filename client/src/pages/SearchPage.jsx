@@ -193,7 +193,9 @@ function SearchPage() {
       </aside>
 
       {loading ? (
+       <div className="flex items-center justify-center w-full ">
         <Loading/>
+        </div>
       ) : (
         <section className="flex flex-col m-4 className gap-4">
           {queriedListings.length != 0 ? (
