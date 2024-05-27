@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import axios from "../config/axiosConfig";
 import { RiMapPin2Fill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading"
 function SearchPage() {
   const navigate = useNavigate();
   const { search } = useLocation(); //search is the key that contains the query string that we will work with , other keys are pathname ,hash ,state and key
@@ -192,9 +193,7 @@ function SearchPage() {
       </aside>
 
       {loading ? (
-        <div className="flex items-center justify-center w-full ">
-          <p className="text-2xl font-semibold">Loading.... </p>
-        </div>
+        <Loading/>
       ) : (
         <section className="flex flex-col m-4 className gap-4">
           {queriedListings.length != 0 ? (
