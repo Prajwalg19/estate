@@ -3,11 +3,13 @@ import axios from "../config/axiosConfig";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "swiper/element/bundle";
 import { RiMapPin2Fill } from "react-icons/ri";
+import Spinner from "../components/Loading";
 const Home = () => {
   register();
   const [offersList, setOffersList] = useState([]);
   const [rentList, setRentList] = useState([]);
   const [saleList, setSaleList] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,8 +31,14 @@ const Home = () => {
       result = result.data;
       setSaleList(result);
     }
+    setLoading(true)
     fetchOffers();
+    setLoading(false)
   }, []);
+  
+  if(loading){
+    return <Spinner/>
+  }
   return (
     <main className="py-2">
       <div className="flex flex-col max-w-6xl pt-20 pl-4 mx-auto text-slate-700 gap-3">
