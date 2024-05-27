@@ -14,6 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     async function fetchOffers() {
+      setLoading(true)
       let result = await axios.get("/api/listings/search?offer=true&limit=5");
       result = result.data;
       setOffersList(result);
@@ -30,10 +31,9 @@ const Home = () => {
       let result = await axios.get("/api/listings/search?offer=true&limit=5");
       result = result.data;
       setSaleList(result);
+      setLoading(false)
     }
-    setLoading(true)
     fetchOffers();
-    setLoading(false)
   }, []);
   
   if(loading){
