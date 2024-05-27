@@ -9,12 +9,11 @@ const Home = () => {
   const [offersList, setOffersList] = useState([]);
   const [rentList, setRentList] = useState([]);
   const [saleList, setSaleList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchOffers() {
-      setLoading(true)
       let result = await axios.get("/api/listings/search?offer=true&limit=5");
       result = result.data;
       setOffersList(result);
