@@ -7,6 +7,7 @@ import { FaBath, FaBed, FaParking, FaChair } from "react-icons/fa";
 import { IoIosShareAlt } from "react-icons/io";
 import { useSelector } from "react-redux";
 import Contact from "../components/Contact";
+import Loading from "../components/Loading"
 const Listing = () => {
   register();
   const [listing, setListing] = useState(null);
@@ -41,7 +42,7 @@ const Listing = () => {
     getListingImages();
   }, []);
   if (loading) {
-    return <h1 className="my-12 text-2xl text-center">Loading.....</h1>;
+    return <Loading/>
   }
   if (error) {
     return (
