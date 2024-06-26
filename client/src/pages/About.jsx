@@ -21,7 +21,7 @@ const About = () => {
       <div className="absolute right-0 pr-2 mt-20">
         <span>- Made by </span>
         <br />
-        <span> Prajwal</span>
+        <span>Manu Karthik & Prajwal</span>
       </div>
     </div>
   );
